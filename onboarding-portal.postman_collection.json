@@ -1,0 +1,107 @@
+{
+  "info": {
+    "name": "Onboarding Portal API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "token", "value": "" },
+    { "key": "providerId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/auth/register",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\":\"Test Provider\",\"email\":\"provider@test.com\",\"password\":\"pass123\"}"
+        }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/auth/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"provider@test.com\",\"password\":\"pass123\"}"
+        }
+      }
+    },
+    {
+      "name": "Get My Profile",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/provider/profile"
+      }
+    },
+    {
+      "name": "Update Profile",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{baseUrl}}/provider/profile",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"categories\":[\"Plumbing\"],\"skills\":[\"Pipe fitting\"],\"experienceYears\":3,\"location\":{\"city\":\"Hyderabad\",\"state\":\"Telangana\",\"pincode\":\"500001\"}}"
+        }
+      }
+    },
+    {
+      "name": "Submit Application",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/provider/submit"
+      }
+    },
+    {
+      "name": "Admin - List Providers",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/admin/providers?status=pending&page=1&limit=10"
+      }
+    },
+    {
+      "name": "Admin - Approve Provider",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/admin/providers/{{providerId}}/approve"
+      }
+    },
+    {
+      "name": "Admin - Reject Provider",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{baseUrl}}/admin/providers/{{providerId}}/reject",
+        "body": {
+          "mode": "raw",
+          "raw": "{\"remark\":\"Document unclear, please re-upload\"}"
+        }
+      }
+    },
+    {
+      "name": "Admin - Stats",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/admin/stats"
+      }
+    }
+  ]
+}
