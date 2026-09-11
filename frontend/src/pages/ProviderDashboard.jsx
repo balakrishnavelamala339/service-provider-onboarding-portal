@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import api from '../api/axios';
+import { fileUrl } from '../api/fileUrl';
 
 const CATEGORY_OPTIONS = ['Plumbing', 'Electrical', 'Cleaning', 'Carpentry', 'Painting', 'AC Repair'];
 
@@ -208,7 +209,7 @@ export default function ProviderDashboard() {
       <div className="upload-section">
         <h3>Profile Photo</h3>
         {profile.profilePhoto && (
-          <img src={profile.profilePhoto} alt="profile" className="preview-photo" />
+          <img src={fileUrl(profile.profilePhoto)} alt="profile" className="preview-photo" />
         )}
         <input type="file" accept="image/*" onChange={uploadPhoto} disabled={locked} />
       </div>
@@ -218,7 +219,7 @@ export default function ProviderDashboard() {
         <ul className="doc-list">
           {profile.documents.map((d, i) => (
             <li key={i}>
-              {d.docType} — <a href={d.fileUrl} target="_blank" rel="noreferrer">view</a>
+              {d.docType} — <a href={fileUrl(d.fileUrl)} target="_blank" rel="noreferrer">view</a>
             </li>
           ))}
         </ul>

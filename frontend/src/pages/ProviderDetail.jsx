@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api/axios';
+import { fileUrl } from '../api/fileUrl';
 
 export default function ProviderDetail() {
   const { id } = useParams();
@@ -52,7 +53,7 @@ export default function ProviderDetail() {
       </button>
 
       <div className="detail-header">
-        {provider.profilePhoto && <img src={provider.profilePhoto} alt="profile" />}
+        {provider.profilePhoto && <img src={fileUrl(provider.profilePhoto)} alt="profile" />}
         <div>
           <h2>{provider.user.name}</h2>
           <p>{provider.user.email}</p>
@@ -90,7 +91,7 @@ export default function ProviderDetail() {
         {provider.documents.map((d, i) => (
           <li key={i}>
             {d.docType} —{' '}
-            <a href={d.fileUrl} target="_blank" rel="noreferrer">
+            <a href={fileUrl(d.fileUrl)} target="_blank" rel="noreferrer">
               view
             </a>
           </li>
